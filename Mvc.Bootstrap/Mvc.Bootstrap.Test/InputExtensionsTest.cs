@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using System.Web.Routing;
 using NUnit.Framework;
 using Mvc.Bootstrap.Core;
@@ -10,9 +9,9 @@ namespace Mvc.Bootstrap.Test
 	[TestFixture]
 	class InputExtensionsTest
 	{
-		private static readonly RouteValueDictionary _attributesDictionary = new RouteValueDictionary(new { baz = "BazValue" });
-		private static readonly object _attributesObjectDictionary = new { baz = "BazObjValue" };
-		private static readonly object _attributesObjectUnderscoresDictionary = new { foo_baz = "BazObjValue" };
+		private static readonly RouteValueDictionary AttributesDictionary = new RouteValueDictionary(new { baz = "BazValue" });
+		private static readonly object AttributesObjectDictionary = new { baz = "BazObjValue" };
+		private static readonly object AttributesObjectUnderscoresDictionary = new { foo_baz = "BazObjValue" };
 		
 		[SetUp]
 		public void SetUp()
@@ -59,7 +58,7 @@ namespace Mvc.Bootstrap.Test
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Bar"">Bar</label><div class=""controls""><input id=""Bar"" name=""Bar"" type=""text"" value=""ViewItemBar"" /></div></div>", html.ToHtmlString());
 		}
 
-		[Test, Ignore("Cannot get ClientValidationRuleFactory to work")]
+		[Test, Ignore("Cannot get ClientValidationRuleFactory to work. Really needs finishing")]
 		public void TextBoxControlGroupForWithSimpleExpression_Unobtrusive()
 		{
 			// Arrange
@@ -83,7 +82,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
 
 			// Act
-			var html = helper.TextBoxControlGroupFor(m => m.Foo, _attributesDictionary);
+			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
@@ -96,7 +95,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
 
 			// Act
-			var html = helper.TextBoxControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
@@ -109,7 +108,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
 
 			// Act
-			var html = helper.TextBoxControlGroupFor(m => m.Foo, _attributesObjectUnderscoresDictionary);
+			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectUnderscoresDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
@@ -150,7 +149,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewDataWithErrors());
 
 			// Act
-			var html = helper.TextBoxControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
