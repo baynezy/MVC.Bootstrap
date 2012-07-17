@@ -261,7 +261,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
 
 			// Act
-			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesDictionary);
+			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
@@ -274,7 +274,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
 
 			// Act
-			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
@@ -287,7 +287,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
 
 			// Act
-			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectUnderscoresDictionary);
+			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectUnderscoresDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
@@ -314,7 +314,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewDataWithErrors());
 
 			// Act
-			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
