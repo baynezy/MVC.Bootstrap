@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -66,29 +67,39 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
 		{
-			var controlGroupDiv = new TagBuilder("div");
-			var errorMessage = "";
-			controlGroupDiv.AddCssClass(ControlGroupClass);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
+
+			return Bootstrapify(coreControl);
+		}
+
+		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+		{
+			return PasswordControlGroupFor(htmlHelper, expression, htmlAttributes: null);
+		}
+
+		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+		{
+			return PasswordControlGroupFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+		}
+
+		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+		{
+			var coreControl = htmlHelper.PasswordFor(expression, htmlAttributes);
+
+			return Bootstrapify(coreControl);
+		}
+
+		private static MvcHtmlString Bootstrapify(IHtmlString coreControl)
+		{
+			var controlGroupDiv = ControlGroupDiv();
 			var coreHtml = coreControl.ToHtmlString();
 			var textBox = Bootstrapify(coreHtml);
 
-			var controlsDiv = new TagBuilder("div");
-			controlsDiv.AddCssClass(ControlsClass);
+			var controlsDiv = ControlsDiv();
 
-			var label = new TagBuilder("label");
-			label.AddCssClass(LabelClass);
-			label.MergeAttribute("for", textBox.Id);
-			label.InnerHtml = textBox.Id;
+			var label = ControlLabel(textBox);
 
-			if (textBox.IsValid)
-			{
-				controlGroupDiv.AddCssClass(ControlGroupErrorClass);
-				var errorBox = new TagBuilder("span");
-				errorBox.AddCssClass(HelperClass);
-				errorBox.InnerHtml = textBox.ErrorMessage;
-				errorMessage = errorBox.ToString();
-			}
+			var errorMessage = HandleErrors(textBox, controlGroupDiv);
 
 			controlsDiv.InnerHtml = coreControl.ToHtmlString() + errorMessage;
 
@@ -103,7 +114,49 @@ namespace Mvc.Bootstrap.Core
 			var errorMessage = GetErrorMessage(html);
 			var id = GetId(html);
 
-			return new BootstrapControl {Id = id, ErrorMessage = errorMessage, Class = cssClass};
+			return new BootstrapControl { Id = id, ErrorMessage = errorMessage, Class = cssClass };
+		}
+
+		private static string HandleErrors(BootstrapControl textBox, TagBuilder controlGroupDiv)
+		{
+			var errorMessage = "";
+
+			if (textBox.IsValid)
+			{
+				controlGroupDiv.AddCssClass(ControlGroupErrorClass);
+				var errorBox = new TagBuilder("span");
+				errorBox.AddCssClass(HelperClass);
+				errorBox.InnerHtml = textBox.ErrorMessage;
+				errorMessage = errorBox.ToString();
+			}
+
+			return errorMessage;
+		}
+
+		private static TagBuilder ControlLabel(BootstrapControl textBox)
+		{
+			var label = new TagBuilder("label");
+			label.AddCssClass(LabelClass);
+			label.MergeAttribute("for", textBox.Id);
+			label.InnerHtml = textBox.Id;
+
+			return label;
+		}
+
+		private static TagBuilder ControlsDiv()
+		{
+			var controlsDiv = new TagBuilder("div");
+			controlsDiv.AddCssClass(ControlsClass);
+
+			return controlsDiv;
+		}
+
+		private static TagBuilder ControlGroupDiv()
+		{
+			var controlGroupDiv = new TagBuilder("div");
+			controlGroupDiv.AddCssClass(ControlGroupClass);
+
+			return controlGroupDiv;
 		}
 
 		private static string GetId(string html)

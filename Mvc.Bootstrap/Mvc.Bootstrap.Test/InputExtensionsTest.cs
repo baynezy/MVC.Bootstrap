@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
 using Mvc.Bootstrap.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mvc.Bootstrap.Test
 {
@@ -168,6 +169,174 @@ namespace Mvc.Bootstrap.Test
 			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
 		}
 
+		[Test, ExpectedException(typeof(ArgumentNullException))]
+		public void PasswordControlGroupForWithNullExpressionThrows()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act & Assert
+			helper.PasswordControlGroupFor<FooModel, object>(null);
+		}
+
+		[Test]
+		public void PasswordControlGroupForDictionaryOverridesImplicitParameters()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, new { type = "fooType" });
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""fooType"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForExpressionNameOverridesDictionary()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, new { name = "bar" });
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithImplicitValue()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test, Ignore("Cannot get ClientValidationRuleFactory to work")]
+		public void PasswordControlGroupForWithImplicitValue_Unobtrusive()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+			helper.ViewContext.ClientValidationEnabled = true;
+			helper.ViewContext.UnobtrusiveJavaScriptEnabled = true;
+			helper.ViewContext.FormContext = new FormContext();
+			//helper.ClientValidationRuleFactory = (name, metadata) => new[] { new ModelClientValidationRule { ValidationType = "type", ErrorMessage = "error" } };
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo);
+
+			// Assert
+			Assert.AreEqual(@"<input data-val=""true"" data-val-type=""error"" id=""foo"" name=""foo"" type=""password"" />", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithDeepValueWithNullModel_Unobtrusive()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<DeepContainerModel>());
+			helper.ViewContext.ClientValidationEnabled = true;
+			helper.ViewContext.UnobtrusiveJavaScriptEnabled = true;
+			helper.ViewContext.FormContext = new FormContext();
+
+			using (HtmlHelperTest.ReplaceCulture("en-US", "en-US"))
+			{
+				// Act
+				var html = helper.PasswordControlGroupFor(m => m.Contained.Foo);
+
+				// Assert
+				Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Contained_Foo"">Contained_Foo</label><div class=""controls""><input data-val=""true"" data-val-required=""The Foo field is required."" id=""Contained_Foo"" name=""Contained.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			}
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithAttributesDictionary()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesDictionary);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithAttributesObject()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithAttributesObjectWithUnderscores()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectUnderscoresDictionary);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithPrefix()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
+			helper.ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = "MyPrefix";
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><input id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+		}
+
+		[Test]
+		public void PasswordControlGroupForWithViewDataErrors()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewDataWithErrors());
+
+			// Act
+			var html = helper.PasswordControlGroupFor(m => m.Foo, _attributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
+		}
+
+		private static ViewDataDictionary<FooModel> GetPasswordViewData()
+		{
+			return new ViewDataDictionary<FooModel> {{"Foo", "ViewDataFoo"}};
+		}
+
+		private static ViewDataDictionary<FooModel> GetPasswordViewDataWithErrors()
+		{
+			var viewData = new ViewDataDictionary<FooModel> { { "Foo", "ViewDataFoo" } };
+			var modelStateFoo = new ModelState();
+			modelStateFoo.Errors.Add(new ModelError("foo error 1"));
+			modelStateFoo.Errors.Add(new ModelError("foo error 2"));
+			viewData.ModelState["Foo"] = modelStateFoo;
+			modelStateFoo.Value = HtmlHelperTest.GetValueProviderResult("AttemptedValueFoo", "AttemptedValueFoo");
+
+			return viewData;
+		}
+
 		private static ViewDataDictionary<FooBarModel> GetTextBoxViewDataWithErrors()
 		{
 			var viewData = new ViewDataDictionary<FooBarModel> { { "Foo", "ViewDataFoo" } };
@@ -188,6 +357,24 @@ namespace Mvc.Bootstrap.Test
 
 			return viewData;
 		}
+	}
+
+
+
+	internal class DeepContainerModel
+	{
+		public ShallowModel Contained { get; set; }
+	}
+
+	internal class ShallowModel
+	{
+		[Required]
+		public string Foo { get; set; }
+	}
+
+	internal class FooModel
+	{
+		public string Foo { get; set; }
 	}
 
 	internal class FooBarModel
