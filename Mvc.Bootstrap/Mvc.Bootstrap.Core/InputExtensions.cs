@@ -33,13 +33,6 @@ namespace Mvc.Bootstrap.Core
 			return CreateButton(label, type, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		private static MvcHtmlString CreateButton(string label, int type, IDictionary<string, object> htmlAttributes)
-		{
-			var button = CreateButton(label, type);
-			button.MergeAttributes(htmlAttributes);
-			return MvcHtmlString.Create(button.ToString());
-		}
-
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, format: null);
@@ -121,13 +114,16 @@ namespace Mvc.Bootstrap.Core
 		{
 			var errorMessage = "";
 
-			if (textBox.IsValid)
+			if (!textBox.IsValid)
 			{
 				controlGroupDiv.AddCssClass(ControlGroupErrorClass);
-				var errorBox = new TagBuilder("span");
-				errorBox.AddCssClass(HelperClass);
-				errorBox.InnerHtml = textBox.ErrorMessage;
-				errorMessage = errorBox.ToString();
+				if (textBox.ErrorMessage.Length > 0)
+				{
+					var errorBox = new TagBuilder("span");
+					errorBox.AddCssClass(HelperClass);
+					errorBox.InnerHtml = textBox.ErrorMessage;
+					errorMessage = errorBox.ToString();
+				}
 			}
 
 			return errorMessage;
@@ -226,6 +222,13 @@ namespace Mvc.Bootstrap.Core
 
 			return cssClass;
 		}
+
+		private static MvcHtmlString CreateButton(string label, int type, IDictionary<string, object> htmlAttributes)
+		{
+			var button = CreateButton(label, type);
+			button.MergeAttributes(htmlAttributes);
+			return MvcHtmlString.Create(button.ToString());
+		}
 	}
 
 	internal class BootstrapControl
@@ -240,7 +243,7 @@ namespace Mvc.Bootstrap.Core
 		{
 			get
 			{
-				return Class.Contains("input-validation-error");
+				return !Class.Contains("input-validation-error");
 			}
 		}
 	}

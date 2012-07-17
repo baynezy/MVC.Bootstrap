@@ -153,7 +153,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -166,7 +166,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, new { @class = "foo-class" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
@@ -317,7 +317,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /><span class=""help-inline""></span></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		private static ViewDataDictionary<FooModel> GetPasswordViewData()
