@@ -1,9 +1,8 @@
-MVC.Bootstrap
-=============
+#MVC.Bootstrap#
 
 This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.
 
-*Usage*
+##Usage##
 
 Once you build the project you need add a reference to it in your ASP.Net MVC project. So you can use the extension methods in your views you need to update the web.config in your views directory to add a reference to the new .dll.
 
