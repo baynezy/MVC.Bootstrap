@@ -13,9 +13,9 @@ namespace Mvc.Bootstrap.Test
 		private static readonly RouteValueDictionary AttributesDictionary = new RouteValueDictionary(new { baz = "BazValue" });
 		private static readonly object AttributesObjectDictionary = new { baz = "BazObjValue" };
 		private static readonly object AttributesObjectUnderscoresDictionary = new { foo_baz = "BazObjValue" };
-		private static readonly object _textAreaAttributesObjectDictionary = new { rows = "15", cols = "12" };
-		private static readonly object _textAreaAttributesObjectUnderscoresDictionary = new { rows = "15", cols = "12", foo_bar = "baz" };
-		private static readonly RouteValueDictionary _textAreaAttributesDictionary = new RouteValueDictionary(new { rows = "15", cols = "12" });
+		private static readonly object TextAreaAttributesObjectDictionary = new { rows = "15", cols = "12" };
+		private static readonly object TextAreaAttributesObjectUnderscoresDictionary = new { rows = "15", cols = "12", foo_bar = "baz" };
+		private static readonly RouteValueDictionary TextAreaAttributesDictionary = new RouteValueDictionary(new { rows = "15", cols = "12" });
 		
 		[SetUp]
 		public void SetUp()
@@ -427,7 +427,7 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act
-			var html = helper.TextAreaControlGroupFor(m => m.Foo, _textAreaAttributesObjectDictionary);
+			var html = helper.TextAreaControlGroupFor(m => m.Foo, TextAreaAttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">
@@ -441,7 +441,7 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act
-			var html = helper.TextAreaControlGroupFor(m => m.Foo, _textAreaAttributesObjectUnderscoresDictionary);
+			var html = helper.TextAreaControlGroupFor(m => m.Foo, TextAreaAttributesObjectUnderscoresDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" foo-bar=""baz"" id=""Foo"" name=""Foo"" rows=""15"">
@@ -455,7 +455,7 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act
-			var html = helper.TextAreaControlGroupFor(m => m.Foo, _textAreaAttributesDictionary);
+			var html = helper.TextAreaControlGroupFor(m => m.Foo, TextAreaAttributesDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">
@@ -469,7 +469,7 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewDataWithErrors());
 
 			// Act
-			var html = helper.TextAreaControlGroupFor(m => m.Foo, _textAreaAttributesObjectDictionary);
+			var html = helper.TextAreaControlGroupFor(m => m.Foo, TextAreaAttributesObjectDictionary);
 
 			// Assert
 			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error"" cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">
