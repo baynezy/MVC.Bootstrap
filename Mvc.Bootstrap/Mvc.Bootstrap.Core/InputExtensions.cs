@@ -82,6 +82,36 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl);
 		}
 
+		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+		{
+			return TextAreaControlGroupFor(htmlHelper, expression, (IDictionary<string, object>)null);
+		}
+
+		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+		{
+			return TextAreaControlGroupFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+		}
+
+		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+		{
+			var coreControl = htmlHelper.TextAreaFor(expression, htmlAttributes);
+
+			return Bootstrapify(coreControl);
+		}
+
+		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
+		{
+			return TextAreaControlGroupFor(htmlHelper, expression, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+		}
+
+		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
+		{
+			var coreControl = htmlHelper.TextAreaFor(expression, rows, columns, htmlAttributes);
+
+			return Bootstrapify(coreControl);
+		}
+
+
 		private static MvcHtmlString Bootstrapify(IHtmlString coreControl)
 		{
 			var controlGroupDiv = ControlGroupDiv();
