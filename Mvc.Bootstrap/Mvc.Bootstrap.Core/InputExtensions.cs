@@ -111,6 +111,37 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl);
 		}
 
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+		{
+			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, null /* htmlAttributes */);
+		}
+
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+		{
+			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+		}
+
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+		{
+			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes);
+		}
+
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+		{
+			return DropDownListControlGroupFor(htmlHelper, expression, selectList, optionLabel, null /* htmlAttributes */);
+		}
+
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+		{
+			return DropDownListControlGroupFor(htmlHelper, expression, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+		}
+
+		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+		{
+			var coreControl = htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes);
+
+			return Bootstrapify(coreControl);
+		}
 
 		private static MvcHtmlString Bootstrapify(IHtmlString coreControl)
 		{
