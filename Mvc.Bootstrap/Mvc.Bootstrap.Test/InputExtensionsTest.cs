@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.Routing;
 using NUnit.Framework;
 using Mvc.Bootstrap.Core;
@@ -16,6 +21,7 @@ namespace Mvc.Bootstrap.Test
 		private static readonly object TextAreaAttributesObjectDictionary = new { rows = "15", cols = "12" };
 		private static readonly object TextAreaAttributesObjectUnderscoresDictionary = new { rows = "15", cols = "12", foo_bar = "baz" };
 		private static readonly RouteValueDictionary TextAreaAttributesDictionary = new RouteValueDictionary(new { rows = "15", cols = "12" });
+		private static readonly ViewDataDictionary<FooModel> _dropDownListViewData = new ViewDataDictionary<FooModel> { { "foo", "Bravo" } };
 		
 		[SetUp]
 		public void SetUp()
@@ -562,6 +568,357 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 		}
 
+		[Test, ExpectedException(typeof(ArgumentNullException))]
+		public void DropDownListControlGroupForWithNullExpressionThrows()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<object>());
+			var selectList = new SelectList(GetSampleAnonymousObjects(), "Letter", "FullWord", "C");
+
+			// Act & Assert
+			helper.DropDownListControlGroupFor<object, object>(null /* expression */, selectList);
+		}
+
+		[Test]
+		public void DropDownListControlGroupForUsesExplicitValueIfNotProvidedInViewData()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleAnonymousObjects(), "Letter", "FullWord", "C");
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, (string)null /* optionLabel */);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option value=""A"">Alpha</option>
+<option value=""B"">Bravo</option>
+<option selected=""selected"" value=""C"">Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test, Ignore("Cannot get ClientValidationRuleFactory to work. Really needs finishing")]
+		public void DropDownListControlGroupForUsesExplicitValueIfNotProvidedInViewData_Unobtrusive()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			helper.ViewContext.ClientValidationEnabled = true;
+			helper.ViewContext.UnobtrusiveJavaScriptEnabled = true;
+			helper.ViewContext.FormContext = new FormContext();
+			//helper.ClientValidationRuleFactory = (name, metadata) => new[] { new ModelClientValidationRule { ValidationType = "type", ErrorMessage = "error" } };
+			var selectList = new SelectList(GetSampleAnonymousObjects(), "Letter", "FullWord", "C");
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, (string)null /* optionLabel */);
+
+			// Assert
+			Assert.AreEqual(
+				@"<select data-val=""true"" data-val-type=""error"" id=""foo"" name=""foo""><option value=""A"">Alpha</option>
+<option value=""B"">Bravo</option>
+<option selected=""selected"" value=""C"">Charlie</option>
+</select>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithEnumerableModel_Unobtrusive()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<IEnumerable<RequiredModel>>());
+			helper.ViewContext.ClientValidationEnabled = true;
+			helper.ViewContext.UnobtrusiveJavaScriptEnabled = true;
+			helper.ViewContext.FormContext = new FormContext();
+			helper.ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = "MyPrefix";
+
+			var selectList = new SelectList(GetSampleAnonymousObjects(), "Letter", "FullWord", "C");
+
+			using (HtmlHelperTest.ReplaceCulture("en-US", "en-US"))
+			{
+				// Act
+				var html = helper.DropDownListControlGroupFor(m => m.ElementAt(0).Foo, selectList);
+
+				// Assert
+				Assert.AreEqual(
+					@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>
+<option value=""B"">Bravo</option>
+<option selected=""selected"" value=""C"">Charlie</option>
+</select></div></div>",
+					html.ToHtmlString());
+			}
+		}
+
+		[Test]
+		public void DropDownListControlGroupForUsesViewDataDefaultValue()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(_dropDownListViewData);
+			var selectList = new SelectList(GetSampleStrings(), "Charlie");
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, (string)null /* optionLabel */);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option>Alpha</option>
+<option selected=""selected"">Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithAttributesDictionary()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, null /* optionLabel */, HtmlHelperTest.AttributesDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazValue"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithErrorsAndCustomClass()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(GetViewDataWithErrors());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, null /* optionLabel */, new { @class = "foo-class" });
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select class=""input-validation-error foo-class"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option selected=""selected"">Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionary()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, null /* optionLabel */, HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionaryWithUnderscores()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, null /* optionLabel */, HtmlHelperTest.AttributesObjectUnderscoresDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionaryAndSelectListNoOptionLabel()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionaryWithUnderscoresAndSelectListNoOptionLabel()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, HtmlHelperTest.AttributesObjectUnderscoresDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionaryAndEmptyOptionLabel()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, String.Empty /* optionLabel */, HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value=""""></option>
+<option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithObjectDictionaryAndTitle()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, "[Select Something]", HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value="""">[Select Something]</option>
+<option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithIEnumerableSelectListItemSelectsDefaultFromViewData()
+		{
+			// Arrange
+			var vdd = new ViewDataDictionary<FooModel> { { "Foo", "123456789" } };
+			var helper = MvcHelper.GetHtmlHelper(vdd);
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, GetSampleIEnumerableObjects());
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>
+<option value=""987654321"">Jane</option>
+<option value=""111111111"">Joe</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithListOfSelectListItemSelectsDefaultFromViewData()
+		{
+			// Arrange
+			var vdd = new ViewDataDictionary<FooModel> { { "foo", "123456789" } };
+			var helper = MvcHelper.GetHtmlHelper(vdd);
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, GetSampleListObjects());
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>
+<option value=""987654321"">Jane</option>
+<option value=""111111111"">Joe</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithPrefix()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+			helper.ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = "MyPrefix";
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, selectList, HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithPrefixAndEmptyName()
+		{
+			// Arrange
+			var helper = MvcHelper.GetHtmlHelper(new ViewDataDictionary<FooModel>());
+			var selectList = new SelectList(GetSampleStrings());
+			helper.ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = "MyPrefix";
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m, selectList, HtmlHelperTest.AttributesObjectDictionary);
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix"" name=""MyPrefix""><option>Alpha</option>
+<option>Bravo</option>
+<option>Charlie</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
+		[Test]
+		public void DropDownListControlGroupForWithPrefixAndIEnumerableSelectListItemSelectsDefaultFromViewData()
+		{
+			// Arrange
+			var vdd = new ViewDataDictionary<FooModel> { { "foo", "123456789" } };
+			vdd.TemplateInfo.HtmlFieldPrefix = "MyPrefix";
+			var helper = MvcHelper.GetHtmlHelper(vdd);
+
+			// Act
+			var html = helper.DropDownListControlGroupFor(m => m.Foo, GetSampleIEnumerableObjects());
+
+			// Assert
+			Assert.AreEqual(
+				@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""123456789"">John</option>
+<option value=""987654321"">Jane</option>
+<option selected=""selected"" value=""111111111"">Joe</option>
+</select></div></div>",
+				html.ToHtmlString());
+		}
+
 		private static ViewDataDictionary<FooModel> GetPasswordViewData()
 		{
 			return new ViewDataDictionary<FooModel> {{"Foo", "ViewDataFoo"}};
@@ -619,6 +976,95 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			modelStateFoo.Value = HtmlHelperTest.GetValueProviderResult(new[] { "AttemptedValueFoo" }, "AttemptedValueFoo");
 
 			return viewData;
+		}
+
+		private static IEnumerable GetSampleAnonymousObjects()
+		{
+			return new[]
+            {
+                new { Letter = 'A', FullWord = "Alpha" },
+                new { Letter = 'B', FullWord = "Bravo" },
+                new { Letter = 'C', FullWord = "Charlie" }
+            };
+		}
+
+		private static IEnumerable<SelectListItem> GetSampleListObjects()
+        {
+			const string selectedSsn = "111111111";
+
+			return GetSamplePeople().Select(person => new SelectListItem
+			                                          	{
+			                                          		Text = person.FirstName, Value = person.Ssn, Selected = String.Equals(person.Ssn, selectedSsn)
+			                                          	}).ToList();
+        }
+
+		private static IEnumerable GetSampleStrings()
+		{
+			return new[] { "Alpha", "Bravo", "Charlie" };
+		}
+
+		private static IEnumerable<SelectListItem> GetSampleIEnumerableObjects()
+		{
+			var people = GetSamplePeople();
+
+			const string selectedSsn = "111111111";
+			var list = from person in people
+											   select new SelectListItem
+											   {
+												   Text = person.FirstName,
+												   Value = person.Ssn,
+												   Selected = String.Equals(person.Ssn, selectedSsn)
+											   };
+			return list;
+		}
+
+		private static ViewDataDictionary<FooBarModel> GetViewDataWithErrors()
+		{
+			var viewData = new ViewDataDictionary<FooBarModel> { { "Foo", "ViewDataFoo" } };
+			viewData.Model = new FooBarModel { Foo = "ViewItemFoo", Bar = "ViewItemBar" };
+
+			var modelStateFoo = new ModelState();
+			modelStateFoo.Errors.Add(new ModelError("Foo error 1"));
+			modelStateFoo.Errors.Add(new ModelError("Foo error 2"));
+			viewData.ModelState["Foo"] = modelStateFoo;
+			modelStateFoo.Value = new ValueProviderResult(new[] { "Bravo", "Charlie" }, "Bravo", CultureInfo.InvariantCulture);
+
+			return viewData;
+		}
+
+		private class RequiredModel
+		{
+			[Required]
+			public string Foo { get; set; }
+		}
+
+		internal static Person[] GetSamplePeople()
+		{
+			return new[]
+            {
+                new Person
+                {
+                    FirstName = "John",
+                    Ssn = "123456789"
+                },
+                new Person
+                {
+                    FirstName = "Jane",
+                    Ssn = "987654321"
+                },
+                new Person
+                {
+                    FirstName = "Joe",
+                    Ssn = "111111111"
+                }
+            };
+		}
+
+		internal class Person
+		{
+			public string FirstName { get; set; }
+
+			public string Ssn { get; set; }
 		}
 	}
 

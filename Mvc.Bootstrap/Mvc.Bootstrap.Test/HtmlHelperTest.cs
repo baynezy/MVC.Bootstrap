@@ -1,12 +1,19 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 ﻿using System;
 ﻿using System.Threading;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Mvc.Bootstrap.Test
 {
 	class HtmlHelperTest
 	{
+
+		public static readonly RouteValueDictionary AttributesDictionary = new RouteValueDictionary(new { baz = "BazValue" });
+		public static readonly object AttributesObjectDictionary = new { baz = "BazObjValue" };
+		public static readonly object AttributesObjectUnderscoresDictionary = new { foo_baz = "BazObjValue" };
+		
 		public static ValueProviderResult GetValueProviderResult(object rawValue, string attemptedValue)
 		{
 			return new ValueProviderResult(rawValue, attemptedValue, CultureInfo.InvariantCulture);
