@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using System.Web.Routing;
 using NUnit.Framework;
 using Mvc.Bootstrap.Core;
@@ -917,6 +916,108 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 <option selected=""selected"" value=""111111111"">Joe</option>
 </select></div></div>",
 				html.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonDefaultWithAttributes()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+			var attributes = new { id = "search"};
+
+			var button = helper.BootstrapButton("Create", Buttons.Default, attributes);
+
+			Assert.AreEqual(@"<button class=""btn"" id=""search"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonDefault()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Default);
+
+			Assert.AreEqual(@"<button class=""btn"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonDanger()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Danger);
+
+			Assert.AreEqual(@"<button class=""btn btn-danger"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonInfo()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Info);
+
+			Assert.AreEqual(@"<button class=""btn btn-info"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonInverse()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Inverse);
+
+			Assert.AreEqual(@"<button class=""btn btn-inverse"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonPrimary()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Primary);
+
+			Assert.AreEqual(@"<button class=""btn btn-primary"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonSuccess()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Success);
+
+			Assert.AreEqual(@"<button class=""btn btn-success"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonWarning()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.BootstrapButton("Create", Buttons.Warning);
+
+			Assert.AreEqual(@"<button class=""btn btn-warning"">Create</button>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonControlGroup()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.ButtonControlGroup("Create", Buttons.Warning);
+
+			Assert.AreEqual(@"<div class=""control-group""><div class=""controls""><button class=""btn btn-warning"">Create</button></div></div>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonControlGroupWithAttributes()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+			var attributes = new { id = "search" };
+
+			var button = helper.ButtonControlGroup("Create", Buttons.Warning, attributes);
+
+			Assert.AreEqual(@"<div class=""control-group""><div class=""controls""><button class=""btn btn-warning"" id=""search"">Create</button></div></div>", button.ToHtmlString());
 		}
 
 		private static ViewDataDictionary<FooModel> GetPasswordViewData()

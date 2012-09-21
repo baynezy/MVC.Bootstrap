@@ -33,6 +33,16 @@ namespace Mvc.Bootstrap.Core
 			return CreateButton(label, type, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
+		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type)
+		{
+			return BootstrapifyButton(BootstrapButton(htmlHelper, label, type));
+		}
+
+		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type, object htmlAttributes)
+		{
+			return BootstrapifyButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
+		}
+
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, format: null);
@@ -162,6 +172,16 @@ namespace Mvc.Bootstrap.Core
 			return MvcHtmlString.Create(controlGroupDiv.ToString());
 		}
 
+		private static MvcHtmlString BootstrapifyButton(MvcHtmlString bootstrapButton)
+		{
+			var group = ControlGroupDiv();
+			var control = ControlsDiv();
+			control.InnerHtml = bootstrapButton.ToHtmlString();
+			group.InnerHtml = control.ToString();
+
+			return MvcHtmlString.Create(group.ToString());
+		}
+
 		private static BootstrapControl Bootstrapify(string html)
 		{
 			var cssClass = GetClass(html);
@@ -190,12 +210,12 @@ namespace Mvc.Bootstrap.Core
 			return errorMessage;
 		}
 
-		private static TagBuilder ControlLabel(BootstrapControl textBox)
+		private static TagBuilder ControlLabel(BootstrapControl control)
 		{
 			var label = new TagBuilder("label");
 			label.AddCssClass(LabelClass);
-			label.MergeAttribute("for", textBox.Id);
-			label.InnerHtml = textBox.Id;
+			label.MergeAttribute("for", control.Id);
+			label.InnerHtml = control.Id;
 
 			return label;
 		}
@@ -253,32 +273,41 @@ namespace Mvc.Bootstrap.Core
 
 		private static string GetButtonClass(int type)
 		{
-			var cssClass = ButtonClass + " ";
+			var cssClass = "";
 			switch (type)
 			{
 				case Buttons.Primary:
-					cssClass += PrimaryButtonClass;
+					cssClass = PrimaryButtonClass;
 					break;
 
 				case Buttons.Info:
-					cssClass += InfoButtonClass;
+					cssClass = InfoButtonClass;
 					break;
 
 				case Buttons.Success:
-					cssClass += SuccessButtonClass;
+					cssClass = SuccessButtonClass;
 					break;
 
 				case Buttons.Warning:
-					cssClass += WarningButtonClass;
+					cssClass = WarningButtonClass;
 					break;
 
 				case Buttons.Danger:
-					cssClass += DangerButtonClass;
+					cssClass = DangerButtonClass;
 					break;
 
 				case Buttons.Inverse:
-					cssClass += InverseButtonClass;
+					cssClass = InverseButtonClass;
 					break;
+			}
+
+			if (cssClass.Length > 0)
+			{
+				cssClass = ButtonClass + " " + cssClass;
+			}
+			else
+			{
+				cssClass = ButtonClass;
 			}
 
 			return cssClass;
