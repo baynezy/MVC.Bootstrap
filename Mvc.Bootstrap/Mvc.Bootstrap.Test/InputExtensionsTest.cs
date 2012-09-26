@@ -1020,6 +1020,27 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 			Assert.AreEqual(@"<div class=""control-group""><div class=""controls""><button class=""btn btn-warning"" id=""search"">Create</button></div></div>", button.ToHtmlString());
 		}
 
+		[Test]
+		public void ButtonFormAction()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+
+			var button = helper.ButtonFormAction("Create", Buttons.Warning);
+
+			Assert.AreEqual(@"<div class=""form-actions""><button class=""btn btn-warning"">Create</button></div>", button.ToHtmlString());
+		}
+
+		[Test]
+		public void ButtonFormActionWithAttributes()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
+			var attributes = new { id = "search" };
+
+			var button = helper.ButtonFormAction("Create", Buttons.Warning, attributes);
+
+			Assert.AreEqual(@"<div class=""form-actions""><button class=""btn btn-warning"" id=""search"">Create</button></div>", button.ToHtmlString());
+		}
+
 		private static ViewDataDictionary<FooModel> GetPasswordViewData()
 		{
 			return new ViewDataDictionary<FooModel> {{"Foo", "ViewDataFoo"}};

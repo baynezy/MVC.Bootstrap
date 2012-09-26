@@ -10,6 +10,7 @@ namespace Mvc.Bootstrap.Core
 {
 	public static class InputExtensions
 	{
+		private const string FormActionClass = "form-actions";
 		private const string InverseButtonClass = "btn-inverse";
 		private const string DangerButtonClass = "btn-danger";
 		private const string WarningButtonClass = "btn-warning";
@@ -35,12 +36,22 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type)
 		{
-			return BootstrapifyButton(BootstrapButton(htmlHelper, label, type));
+			return BootstrapifyControlGroupButton(BootstrapButton(htmlHelper, label, type));
 		}
 
 		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type, object htmlAttributes)
 		{
-			return BootstrapifyButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
+			return BootstrapifyControlGroupButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
+		}
+
+		public static MvcHtmlString ButtonFormAction(this HtmlHelper htmlHelper, string label, int type)
+		{
+			return BootstrapifyFormActionButton(BootstrapButton(htmlHelper, label, type));
+		}
+
+		public static MvcHtmlString ButtonFormAction(this HtmlHelper htmlHelper, string label, int type, object  htmlAttributes)
+		{
+			return BootstrapifyFormActionButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
 		}
 
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
@@ -172,7 +183,7 @@ namespace Mvc.Bootstrap.Core
 			return MvcHtmlString.Create(controlGroupDiv.ToString());
 		}
 
-		private static MvcHtmlString BootstrapifyButton(MvcHtmlString bootstrapButton)
+		private static MvcHtmlString BootstrapifyControlGroupButton(MvcHtmlString bootstrapButton)
 		{
 			var group = ControlGroupDiv();
 			var control = ControlsDiv();
@@ -180,6 +191,14 @@ namespace Mvc.Bootstrap.Core
 			group.InnerHtml = control.ToString();
 
 			return MvcHtmlString.Create(group.ToString());
+		}
+
+		private static MvcHtmlString BootstrapifyFormActionButton(MvcHtmlString bootstrapButton)
+		{
+			var control = FormActionDiv();
+			control.InnerHtml = bootstrapButton.ToHtmlString();
+
+			return MvcHtmlString.Create(control.ToString());
 		}
 
 		private static BootstrapControl Bootstrapify(string html)
@@ -234,6 +253,14 @@ namespace Mvc.Bootstrap.Core
 			controlGroupDiv.AddCssClass(ControlGroupClass);
 
 			return controlGroupDiv;
+		}
+
+		private static TagBuilder FormActionDiv()
+		{
+			var formActionDiv = new TagBuilder("div");
+			formActionDiv.AddCssClass(FormActionClass);
+
+			return formActionDiv;
 		}
 
 		private static string GetId(string html)
