@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.2.1</version>
+    <title>Twitter Bootstrap and ASP.NET MVC</title>
+    <authors>Simon Baynes</authors>
+    <owners>Simon Baynes</owners>
+    <projectUrl>https://github.com/baynezy/MVC.Bootstrap</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package restore is disabled by default. To give consent, open the Visual Studio Options dialog, click on Package Manager node and check 'Allow NuGet to download  missing packages during build.' You can also give consent by setting the environment variable 'EnableNuGetPackageRestore' to 'true'.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>aspnet aspnetmvc</tags>
+  </metadata>
+</package>
