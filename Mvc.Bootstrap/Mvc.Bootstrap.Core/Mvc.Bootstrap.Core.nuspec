@@ -8,7 +8,7 @@
     <owners>Simon Baynes</owners>
     <projectUrl>https://github.com/baynezy/MVC.Bootstrap</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package restore is disabled by default. To give consent, open the Visual Studio Options dialog, click on Package Manager node and check 'Allow NuGet to download  missing packages during build.' You can also give consent by setting the environment variable 'EnableNuGetPackageRestore' to 'true'.</description>
+    <description>Contains extension methods for the System.Web.Mvc.HtmlHelper class. Allowing you to use Asp.Net MVC with the Twitter Bootstrap UI Framework.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>aspnet aspnetmvc</tags>
