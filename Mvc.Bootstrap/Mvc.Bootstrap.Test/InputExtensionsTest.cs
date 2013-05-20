@@ -639,10 +639,7 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 
 				// Assert
 				Assert.AreEqual(
-					@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>
-<option value=""B"">Bravo</option>
-<option selected=""selected"" value=""C"">Charlie</option>
-</select></div></div>",
+					"<div class=\"control-group\"><label class=\"control-label\" for=\"MyPrefix_Foo\">MyPrefix_Foo</label><div class=\"controls\"><select data-val=\"true\" data-val-required=\"The Foo field is required.\" id=\"MyPrefix_Foo\" name=\"MyPrefix.Foo\"><option value=\"A\">Alpha</option>\r\n<option value=\"B\">Bravo</option>\r\n<option selected=\"selected\" value=\"C\">Charlie</option>\r\n</select></div></div>",
 					html.ToHtmlString());
 			}
 		}
@@ -911,9 +908,9 @@ ViewItemFoo</textarea></div></div>", html.ToHtmlString());
 
 			// Assert
 			Assert.AreEqual(
-				@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""123456789"">John</option>
+				@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option selected=""selected"" value=""123456789"">John</option>
 <option value=""987654321"">Jane</option>
-<option selected=""selected"" value=""111111111"">Joe</option>
+<option value=""111111111"">Joe</option>
 </select></div></div>",
 				html.ToHtmlString());
 		}
