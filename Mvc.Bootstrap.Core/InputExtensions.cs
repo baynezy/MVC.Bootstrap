@@ -18,7 +18,6 @@ namespace Mvc.Bootstrap.Core
 		private const string InfoButtonClass = "btn-info";
 		private const string PrimaryButtonClass = "btn-primary";
 		private const string ButtonClass = "btn";
-		private const string ControlsClass = "controls";
 		private const string LabelClass = "control-label";
 		private const string HelperClass = "help-inline";
 		private const string ControlGroupClass = "form-group";
@@ -256,14 +255,6 @@ namespace Mvc.Bootstrap.Core
 			label.InnerHtml = control.Id;
 
 			return label;
-		}
-
-		private static TagBuilder ControlsDiv()
-		{
-			var controlsDiv = new TagBuilder("div");
-			controlsDiv.AddCssClass(ControlsClass);
-
-			return controlsDiv;
 		}
 
 		private static TagBuilder ControlGroupDiv()
