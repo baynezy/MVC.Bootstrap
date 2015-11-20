@@ -162,7 +162,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -175,7 +175,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, new { @class = "foo-class" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
@@ -326,7 +326,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
@@ -498,7 +498,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error"" cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
+			sb.AppendLine(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error"" cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
 			sb.Append(@"AttemptedValueFoo</textarea></div></div>");
 
 
@@ -516,7 +516,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error foo-class"" cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
+			sb.AppendLine(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error foo-class"" cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
 			sb.Append(@"AttemptedValueFoo</textarea></div></div>");
 
 
@@ -739,7 +739,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select class=""input-validation-error foo-class"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select class=""input-validation-error foo-class"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option selected=""selected"">Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
