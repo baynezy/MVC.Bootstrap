@@ -682,7 +682,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 				// Assert
 				Assert.AreEqual(
-					"<div class=\"control-group\"><label class=\"control-label\" for=\"MyPrefix_Foo\">MyPrefix_Foo</label><div class=\"controls\"><select data-val=\"true\" data-val-required=\"The Foo field is required.\" id=\"MyPrefix_Foo\" name=\"MyPrefix.Foo\"><option value=\"A\">Alpha</option>\r\n<option value=\"B\">Bravo</option>\r\n<option selected=\"selected\" value=\"C\">Charlie</option>\r\n</select></div></div>",
+					@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select data-val=""true"" data-val-required=""The Foo field is required."" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>" + Environment.NewLine + @"<option value=""B"">Bravo</option>" + Environment.NewLine + @"<option selected=""selected"" value=""C"">Charlie</option>" + Environment.NewLine + "</select></div></div>",
 					html.ToHtmlString());
 			}
 		}
