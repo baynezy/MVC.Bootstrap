@@ -47,7 +47,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
 			var html = helper.TextBoxControlGroupFor(m => m.Foo);
 
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -65,7 +65,7 @@ namespace Mvc.Bootstrap.Test
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
 			var html = helper.TextBoxControlGroupFor(m => m.Bar);
 
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Bar"">Bar</label><div class=""controls""><input id=""Bar"" name=""Bar"" type=""text"" value=""ViewItemBar"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Bar"">Bar</label><div class=""controls""><input id=""Bar"" name=""Bar"" type=""text"" value=""ViewItemBar"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, Ignore("Cannot get ClientValidationRuleFactory to work. Really needs finishing")]
@@ -95,7 +95,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -108,7 +108,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -121,7 +121,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectUnderscoresDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -135,7 +135,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><input id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><input id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, Ignore("This should be returning a JSON Packet")]
@@ -149,7 +149,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><input id=""MyPrefix"" name=""MyPrefix"" type=""text"" value=""{ Foo = ViewItemFoo, Bar = ViewItemBar }"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><input id=""MyPrefix"" name=""MyPrefix"" type=""text"" value=""{ Foo = ViewItemFoo, Bar = ViewItemBar }"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -162,7 +162,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -175,7 +175,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, new { @class = "foo-class" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
@@ -198,7 +198,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, new { type = "fooType" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""fooType"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""fooType"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -211,7 +211,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, new { name = "bar" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -224,7 +224,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, Ignore("Cannot get ClientValidationRuleFactory to work")]
@@ -259,7 +259,7 @@ namespace Mvc.Bootstrap.Test
 				var html = helper.PasswordControlGroupFor(m => m.Contained.Foo);
 
 				// Assert
-				Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Contained_Foo"">Contained_Foo</label><div class=""controls""><input data-val=""true"" data-val-required=""The Foo field is required."" id=""Contained_Foo"" name=""Contained.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+				Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Contained_Foo"">Contained_Foo</label><div class=""controls""><input data-val=""true"" data-val-required=""The Foo field is required."" id=""Contained_Foo"" name=""Contained.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 			}
 		}
 
@@ -273,7 +273,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -286,7 +286,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -299,7 +299,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectUnderscoresDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -313,7 +313,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><input id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><input id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -326,7 +326,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""password"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
@@ -370,7 +370,7 @@ namespace Mvc.Bootstrap.Test
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""20"" id=""Foo"" name=""Foo"" rows=""30"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""20"" id=""Foo"" name=""Foo"" rows=""30"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -412,7 +412,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -429,7 +429,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea id=""Foo"" name=""Foo"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea id=""Foo"" name=""Foo"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -446,7 +446,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 
@@ -464,7 +464,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" foo-bar=""baz"" id=""Foo"" name=""Foo"" rows=""15"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" foo-bar=""baz"" id=""Foo"" name=""Foo"" rows=""15"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -481,7 +481,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -498,7 +498,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error"" cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
+			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error"" cols=""12"" id=""Foo"" name=""Foo"" rows=""15"">");
 			sb.Append(@"AttemptedValueFoo</textarea></div></div>");
 
 
@@ -516,7 +516,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error foo-class"" cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
+			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea class=""input-validation-error foo-class"" cols=""20"" id=""Foo"" name=""Foo"" rows=""2"">");
 			sb.Append(@"AttemptedValueFoo</textarea></div></div>");
 
 
@@ -535,7 +535,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><textarea cols=""20"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" rows=""2"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><textarea cols=""20"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" rows=""2"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -553,7 +553,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><textarea cols=""20"" id=""MyPrefix"" name=""MyPrefix"" rows=""2"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><textarea cols=""20"" id=""MyPrefix"" name=""MyPrefix"" rows=""2"">");
 			sb.Append(@"Mvc.Bootstrap.Test.TextAreaModel</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -570,7 +570,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" id=""Foo"" name=""Foo"" rows=""10"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" id=""Foo"" name=""Foo"" rows=""10"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -587,7 +587,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" foo-bar=""baz"" id=""Foo"" name=""Foo"" rows=""10"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" foo-bar=""baz"" id=""Foo"" name=""Foo"" rows=""10"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -604,7 +604,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder(); 
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" id=""Foo"" name=""Foo"" rows=""10"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><textarea cols=""25"" id=""Foo"" name=""Foo"" rows=""10"">");
 			sb.Append(@"ViewItemFoo</textarea></div></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -633,7 +633,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option value=""A"">Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option value=""A"">Alpha</option>");
 			sb.AppendLine(@"<option value=""B"">Bravo</option>");
 			sb.AppendLine(@"<option selected=""selected"" value=""C"">Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -682,7 +682,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 				// Assert
 				Assert.AreEqual(
-					@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select data-val=""true"" data-val-required=""The Foo field is required."" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>" + Environment.NewLine + @"<option value=""B"">Bravo</option>" + Environment.NewLine + @"<option selected=""selected"" value=""C"">Charlie</option>" + Environment.NewLine + "</select></div></div>",
+					@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select data-val=""true"" data-val-required=""The Foo field is required."" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>" + Environment.NewLine + @"<option value=""B"">Bravo</option>" + Environment.NewLine + @"<option selected=""selected"" value=""C"">Charlie</option>" + Environment.NewLine + "</select></div></div>",
 					html.ToHtmlString());
 			}
 		}
@@ -699,7 +699,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option selected=""selected"">Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -719,7 +719,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -739,7 +739,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""error control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select class=""input-validation-error foo-class"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select class=""input-validation-error foo-class"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option selected=""selected"">Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -759,7 +759,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -779,7 +779,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -799,7 +799,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -820,7 +820,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select foo-baz=""BazObjValue"" id=""Foo"" name=""Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -840,7 +840,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value=""""></option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value=""""></option>");
 			sb.AppendLine(@"<option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
@@ -862,7 +862,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value="""">[Select Something]</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""Foo"" name=""Foo""><option value="""">[Select Something]</option>");
 			sb.AppendLine(@"<option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
@@ -883,7 +883,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>");
 			sb.AppendLine(@"<option value=""987654321"">Jane</option>");
 			sb.AppendLine(@"<option value=""111111111"">Joe</option>");
 			sb.Append(@"</select></div></div>");
@@ -903,7 +903,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><select id=""Foo"" name=""Foo""><option selected=""selected"" value=""123456789"">John</option>");
 			sb.AppendLine(@"<option value=""987654321"">Jane</option>");
 			sb.AppendLine(@"<option value=""111111111"">Joe</option>");
 			sb.Append(@"</select></div></div>");
@@ -925,7 +925,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -947,7 +947,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix"" name=""MyPrefix""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><div class=""controls""><select baz=""BazObjValue"" id=""MyPrefix"" name=""MyPrefix""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div></div>");
@@ -969,7 +969,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""control-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option selected=""selected"" value=""123456789"">John</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><div class=""controls""><select id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option selected=""selected"" value=""123456789"">John</option>");
 			sb.AppendLine(@"<option value=""987654321"">Jane</option>");
 			sb.AppendLine(@"<option value=""111111111"">Joe</option>");
 			sb.Append(@"</select></div></div>");
@@ -1065,7 +1065,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			var button = helper.ButtonControlGroup("Create", Buttons.Warning);
 
-			Assert.AreEqual(@"<div class=""control-group""><div class=""controls""><button class=""btn btn-warning"">Create</button></div></div>", button.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><div class=""controls""><button class=""btn btn-warning"">Create</button></div></div>", button.ToHtmlString());
 		}
 
 		[Test]
@@ -1076,7 +1076,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			var button = helper.ButtonControlGroup("Create", Buttons.Warning, attributes);
 
-			Assert.AreEqual(@"<div class=""control-group""><div class=""controls""><button class=""btn btn-warning"" id=""search"">Create</button></div></div>", button.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><div class=""controls""><button class=""btn btn-warning"" id=""search"">Create</button></div></div>", button.ToHtmlString());
 		}
 
 		[Test]

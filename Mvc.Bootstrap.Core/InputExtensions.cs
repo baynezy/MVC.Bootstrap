@@ -21,7 +21,7 @@ namespace Mvc.Bootstrap.Core
 		private const string ControlsClass = "controls";
 		private const string LabelClass = "control-label";
 		private const string HelperClass = "help-inline";
-		private const string ControlGroupClass = "control-group";
+		private const string ControlGroupClass = "form-group";
 		private const string ControlGroupErrorClass = "error";
 
 		public static MvcHtmlString BootstrapButton(this HtmlHelper htmlHelper, string label, int type)
