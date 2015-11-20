@@ -18,11 +18,11 @@ namespace Mvc.Bootstrap.Core
 		private const string InfoButtonClass = "btn-info";
 		private const string PrimaryButtonClass = "btn-primary";
 		private const string ButtonClass = "btn";
-		private const string ControlsClass = "controls";
 		private const string LabelClass = "control-label";
 		private const string HelperClass = "help-inline";
-		private const string ControlGroupClass = "control-group";
-		private const string ControlGroupErrorClass = "error";
+		private const string ControlGroupClass = "form-group";
+		private const string ControlGroupErrorClass = "has-error";
+		private const string FormControlClass = "form-control";
 
 		public static MvcHtmlString BootstrapButton(this HtmlHelper htmlHelper, string label, int type)
 		{
@@ -81,6 +81,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -98,6 +99,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.PasswordFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -115,6 +117,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -127,6 +130,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, rows, columns, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -159,6 +163,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -170,15 +175,11 @@ namespace Mvc.Bootstrap.Core
 			var coreHtml = coreControl.ToHtmlString();
 			var textBox = Bootstrapify(coreHtml);
 
-			var controlsDiv = ControlsDiv();
-
 			var label = ControlLabel(textBox);
 
 			var errorMessage = HandleErrors(textBox, controlGroupDiv);
 
-			controlsDiv.InnerHtml = coreControl.ToHtmlString() + errorMessage;
-
-			controlGroupDiv.InnerHtml = label + controlsDiv.ToString();
+			controlGroupDiv.InnerHtml = label + coreControl.ToHtmlString() + errorMessage;
 
 			return MvcHtmlString.Create(controlGroupDiv.ToString());
 		}
@@ -186,9 +187,7 @@ namespace Mvc.Bootstrap.Core
 		private static MvcHtmlString BootstrapifyControlGroupButton(MvcHtmlString bootstrapButton)
 		{
 			var group = ControlGroupDiv();
-			var control = ControlsDiv();
-			control.InnerHtml = bootstrapButton.ToHtmlString();
-			group.InnerHtml = control.ToString();
+			group.InnerHtml = bootstrapButton.ToHtmlString();
 
 			return MvcHtmlString.Create(group.ToString());
 		}
@@ -208,6 +207,25 @@ namespace Mvc.Bootstrap.Core
 			var id = GetId(html);
 
 			return new BootstrapControl { Id = id, ErrorMessage = errorMessage, Class = cssClass };
+		}
+
+		private static void AddInputAttributes(ref IDictionary<string, object> htmlAttributes)
+		{
+			if (htmlAttributes == null) htmlAttributes = new Dictionary<string, object>();
+			
+			string classes;
+			if (htmlAttributes.ContainsKey("class"))
+			{
+				classes = (string)htmlAttributes["class"];
+				classes += " " + FormControlClass;
+				htmlAttributes.Remove("class");
+			}
+			else
+			{
+				classes = FormControlClass;
+			}
+
+			htmlAttributes.Add("class", classes);
 		}
 
 		private static string HandleErrors(BootstrapControl textBox, TagBuilder controlGroupDiv)
@@ -237,14 +255,6 @@ namespace Mvc.Bootstrap.Core
 			label.InnerHtml = control.Id;
 
 			return label;
-		}
-
-		private static TagBuilder ControlsDiv()
-		{
-			var controlsDiv = new TagBuilder("div");
-			controlsDiv.AddCssClass(ControlsClass);
-
-			return controlsDiv;
 		}
 
 		private static TagBuilder ControlGroupDiv()
