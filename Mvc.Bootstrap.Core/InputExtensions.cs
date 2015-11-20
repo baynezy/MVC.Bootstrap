@@ -176,15 +176,11 @@ namespace Mvc.Bootstrap.Core
 			var coreHtml = coreControl.ToHtmlString();
 			var textBox = Bootstrapify(coreHtml);
 
-			var controlsDiv = ControlsDiv();
-
 			var label = ControlLabel(textBox);
 
 			var errorMessage = HandleErrors(textBox, controlGroupDiv);
 
-			controlsDiv.InnerHtml = coreControl.ToHtmlString() + errorMessage;
-
-			controlGroupDiv.InnerHtml = label + controlsDiv.ToString();
+			controlGroupDiv.InnerHtml = label + coreControl.ToHtmlString() + errorMessage;
 
 			return MvcHtmlString.Create(controlGroupDiv.ToString());
 		}
@@ -192,9 +188,7 @@ namespace Mvc.Bootstrap.Core
 		private static MvcHtmlString BootstrapifyControlGroupButton(MvcHtmlString bootstrapButton)
 		{
 			var group = ControlGroupDiv();
-			var control = ControlsDiv();
-			control.InnerHtml = bootstrapButton.ToHtmlString();
-			group.InnerHtml = control.ToString();
+			group.InnerHtml = bootstrapButton.ToHtmlString();
 
 			return MvcHtmlString.Create(group.ToString());
 		}
