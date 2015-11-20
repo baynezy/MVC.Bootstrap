@@ -82,7 +82,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
 		{
-			AddInputAttributes(htmlAttributes);
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -100,6 +100,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.PasswordFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -117,6 +118,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -129,6 +131,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, rows, columns, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -161,6 +164,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -212,9 +216,9 @@ namespace Mvc.Bootstrap.Core
 			return new BootstrapControl { Id = id, ErrorMessage = errorMessage, Class = cssClass };
 		}
 
-		private static void AddInputAttributes(IDictionary<string, object> htmlAttributes)
+		private static void AddInputAttributes(ref IDictionary<string, object> htmlAttributes)
 		{
-			if (htmlAttributes == null) return;
+			if (htmlAttributes == null) htmlAttributes = new Dictionary<string, object>();
 			
 			string classes;
 			if (htmlAttributes.ContainsKey("class"))
