@@ -23,6 +23,7 @@ namespace Mvc.Bootstrap.Core
 		private const string HelperClass = "help-inline";
 		private const string ControlGroupClass = "form-group";
 		private const string ControlGroupErrorClass = "has-error";
+		private const string FormControlClass = "form-control";
 
 		public static MvcHtmlString BootstrapButton(this HtmlHelper htmlHelper, string label, int type)
 		{
@@ -81,6 +82,7 @@ namespace Mvc.Bootstrap.Core
 
 		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
 		{
+			AddInputAttributes(htmlAttributes);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
 
 			return Bootstrapify(coreControl);
@@ -208,6 +210,25 @@ namespace Mvc.Bootstrap.Core
 			var id = GetId(html);
 
 			return new BootstrapControl { Id = id, ErrorMessage = errorMessage, Class = cssClass };
+		}
+
+		private static void AddInputAttributes(IDictionary<string, object> htmlAttributes)
+		{
+			if (htmlAttributes == null) return;
+			
+			string classes;
+			if (htmlAttributes.ContainsKey("class"))
+			{
+				classes = (string)htmlAttributes["class"];
+				classes += " " + FormControlClass;
+				htmlAttributes.Remove("class");
+			}
+			else
+			{
+				classes = FormControlClass;
+			}
+
+			htmlAttributes.Add("class", classes);
 		}
 
 		private static string HandleErrors(BootstrapControl textBox, TagBuilder controlGroupDiv)

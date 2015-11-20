@@ -95,7 +95,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazValue"" class=""form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -108,7 +108,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -121,7 +121,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectUnderscoresDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""form-control"" foo-baz=""BazObjValue"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -162,7 +162,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, AttributesObjectDictionary);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input baz=""BazObjValue"" class=""input-validation-error form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -175,7 +175,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo, new { @class = "foo-class" });
 
 			// Assert
-			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><div class=""controls""><input class=""input-validation-error foo-class form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div></div>", html.ToHtmlString());
 		}
 
 		[Test, ExpectedException(typeof(ArgumentNullException))]
