@@ -19,7 +19,7 @@ namespace Mvc.Bootstrap.Core
 		private const string PrimaryButtonClass = "btn-primary";
 		private const string ButtonClass = "btn";
 		private const string LabelClass = "control-label";
-		private const string HelperClass = "help-inline";
+		private const string HelperClass = "help-block";
 		private const string ControlGroupClass = "form-group";
 		private const string ControlGroupErrorClass = "has-error";
 		private const string FormControlClass = "form-control";
