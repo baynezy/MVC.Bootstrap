@@ -83,8 +83,14 @@ namespace Mvc.Bootstrap.Core
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
+			var coreLabel = htmlHelper.LabelFor(expression, LabelHtmlAttributes());
 
-			return Bootstrapify(coreControl);
+			return Bootstrapify(coreControl, coreLabel);
+		}
+
+		private static IDictionary<string, object> LabelHtmlAttributes()
+		{
+			return new Dictionary<string, object> {{"class", LabelClass}};
 		}
 
 		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
@@ -101,8 +107,9 @@ namespace Mvc.Bootstrap.Core
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.PasswordFor(expression, htmlAttributes);
+			var coreLabel = htmlHelper.LabelFor(expression, LabelHtmlAttributes());
 
-			return Bootstrapify(coreControl);
+			return Bootstrapify(coreControl, coreLabel);
 		}
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
@@ -119,8 +126,9 @@ namespace Mvc.Bootstrap.Core
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, htmlAttributes);
+			var coreLabel = htmlHelper.LabelFor(expression, LabelHtmlAttributes());
 
-			return Bootstrapify(coreControl);
+			return Bootstrapify(coreControl, coreLabel);
 		}
 
 		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
@@ -132,8 +140,9 @@ namespace Mvc.Bootstrap.Core
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, rows, columns, htmlAttributes);
+			var coreLabel = htmlHelper.LabelFor(expression, LabelHtmlAttributes());
 
-			return Bootstrapify(coreControl);
+			return Bootstrapify(coreControl, coreLabel);
 		}
 
 		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
@@ -165,21 +174,22 @@ namespace Mvc.Bootstrap.Core
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes);
+			var coreLabel = htmlHelper.LabelFor(expression, LabelHtmlAttributes());
 
-			return Bootstrapify(coreControl);
+			return Bootstrapify(coreControl, coreLabel);
 		}
 
-		private static MvcHtmlString Bootstrapify(IHtmlString coreControl)
+		private static MvcHtmlString Bootstrapify(IHtmlString coreControl, MvcHtmlString coreLabel)
 		{
 			var controlGroupDiv = ControlGroupDiv();
 			var coreHtml = coreControl.ToHtmlString();
 			var textBox = Bootstrapify(coreHtml);
 
-			var label = ControlLabel(textBox);
+			var label = coreLabel;
 
 			var errorMessage = HandleErrors(textBox, controlGroupDiv);
 
-			controlGroupDiv.InnerHtml = label + coreControl.ToHtmlString() + errorMessage;
+			controlGroupDiv.InnerHtml = label.ToHtmlString() + coreControl.ToHtmlString() + errorMessage;
 
 			return MvcHtmlString.Create(controlGroupDiv.ToString());
 		}
