@@ -68,6 +68,15 @@ namespace Mvc.Bootstrap.Test
 			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Bar"">Bar</label><input class=""form-control"" id=""Bar"" name=""Bar"" type=""text"" value=""ViewItemBar"" /></div>", html.ToHtmlString());
 		}
 
+		[Test]
+		public void TextBoxControlGroupForValidWithCustomLabelValue()
+		{
+			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewDataWithCustomLabelValue());
+			var html = helper.TextBoxControlGroupFor(m => m.Foo);
+
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Foo"">FooLabel</label><input class=""form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""ViewItemFoo"" /></div>", html.ToHtmlString());
+		}
+
 		[Test, Ignore("Cannot get ClientValidationRuleFactory to work. Really needs finishing")]
 		public void TextBoxControlGroupForWithSimpleExpression_Unobtrusive()
 		{
@@ -135,7 +144,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.TextBoxControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><input class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""text"" value=""ViewItemFoo"" /></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><input class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""text"" value=""ViewItemFoo"" /></div>", html.ToHtmlString());
 		}
 
 		[Test, Ignore("This should be returning a JSON Packet")]
@@ -259,7 +268,7 @@ namespace Mvc.Bootstrap.Test
 				var html = helper.PasswordControlGroupFor(m => m.Contained.Foo);
 
 				// Assert
-				Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Contained_Foo"">Contained_Foo</label><input class=""form-control"" data-val=""true"" data-val-required=""The Foo field is required."" id=""Contained_Foo"" name=""Contained.Foo"" type=""password"" /></div>", html.ToHtmlString());
+				Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""Contained_Foo"">Foo</label><input class=""form-control"" data-val=""true"" data-val-required=""The Foo field is required."" id=""Contained_Foo"" name=""Contained.Foo"" type=""password"" /></div>", html.ToHtmlString());
 			}
 		}
 
@@ -313,7 +322,7 @@ namespace Mvc.Bootstrap.Test
 			var html = helper.PasswordControlGroupFor(m => m.Foo);
 
 			// Assert
-			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><input class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""password"" /></div>", html.ToHtmlString());
+			Assert.AreEqual(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><input class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" type=""password"" /></div>", html.ToHtmlString());
 		}
 
 		[Test]
@@ -535,7 +544,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><textarea class=""form-control"" cols=""20"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" rows=""2"">");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><textarea class=""form-control"" cols=""20"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo"" rows=""2"">");
 			sb.Append(@"ViewItemFoo</textarea></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -553,7 +562,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><textarea class=""form-control"" cols=""20"" id=""MyPrefix"" name=""MyPrefix"" rows=""2"">");
+			sb.AppendLine(@"<div class=""form-group""><textarea class=""form-control"" cols=""20"" id=""MyPrefix"" name=""MyPrefix"" rows=""2"">");
 			sb.Append(@"Mvc.Bootstrap.Test.TextAreaModel</textarea></div>");
 
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
@@ -682,7 +691,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 				// Assert
 				Assert.AreEqual(
-					@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><select class=""form-control"" data-val=""true"" data-val-required=""The Foo field is required."" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>" + Environment.NewLine + @"<option value=""B"">Bravo</option>" + Environment.NewLine + @"<option selected=""selected"" value=""C"">Charlie</option>" + Environment.NewLine + "</select></div>",
+					@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><select class=""form-control"" data-val=""true"" data-val-required=""The Foo field is required."" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option value=""A"">Alpha</option>" + Environment.NewLine + @"<option value=""B"">Bravo</option>" + Environment.NewLine + @"<option selected=""selected"" value=""C"">Charlie</option>" + Environment.NewLine + "</select></div>",
 					html.ToHtmlString());
 			}
 		}
@@ -925,7 +934,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><select baz=""BazObjValue"" class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><select baz=""BazObjValue"" class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div>");
@@ -947,7 +956,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix"">MyPrefix</label><select baz=""BazObjValue"" class=""form-control"" id=""MyPrefix"" name=""MyPrefix""><option>Alpha</option>");
+			sb.AppendLine(@"<div class=""form-group""><select baz=""BazObjValue"" class=""form-control"" id=""MyPrefix"" name=""MyPrefix""><option>Alpha</option>");
 			sb.AppendLine(@"<option>Bravo</option>");
 			sb.AppendLine(@"<option>Charlie</option>");
 			sb.Append(@"</select></div>");
@@ -969,7 +978,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 			// Assert
 			var sb = new StringBuilder();
-			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">MyPrefix_Foo</label><select class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option selected=""selected"" value=""123456789"">John</option>");
+			sb.AppendLine(@"<div class=""form-group""><label class=""control-label"" for=""MyPrefix_Foo"">Foo</label><select class=""form-control"" id=""MyPrefix_Foo"" name=""MyPrefix.Foo""><option selected=""selected"" value=""123456789"">John</option>");
 			sb.AppendLine(@"<option value=""987654321"">Jane</option>");
 			sb.AppendLine(@"<option value=""111111111"">Joe</option>");
 			sb.Append(@"</select></div>");
@@ -1138,6 +1147,14 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 			return viewData;
 		}
 
+		private static ViewDataDictionary<FooBarModelWithCustomLabel> GetTextBoxViewDataWithCustomLabelValue()
+		{
+			var viewData = new ViewDataDictionary<FooBarModelWithCustomLabel> { { "Foo", "ViewDataFoo" } };
+			viewData.Model = new FooBarModelWithCustomLabel() { Foo = "ViewItemFoo", Bar = "ViewItemBar" };
+
+			return viewData;
+		}
+
 		private static ViewDataDictionary<TextAreaModel> GetTextAreaViewData()
 		{
 			var viewData = new ViewDataDictionary<TextAreaModel> { { "Foo", "ViewDataFoo" } };
@@ -1249,6 +1266,8 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 		}
 	}
 
+	
+
 	internal class TextAreaModel
 	{
 		public string Foo { get; set; }
@@ -1274,6 +1293,14 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 
 	internal class FooBarModel
 	{
+		public string Foo { get; set; }
+
+		public string Bar { get; set; }
+	}
+
+	internal class FooBarModelWithCustomLabel
+	{
+		[Display(Name="FooLabel")]
 		public string Foo { get; set; }
 
 		public string Bar { get; set; }
