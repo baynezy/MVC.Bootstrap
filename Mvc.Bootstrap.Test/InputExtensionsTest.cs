@@ -29,12 +29,12 @@ namespace Mvc.Bootstrap.Test
 			_attributesDictionary = new RouteValueDictionary(new {baz = "BazValue"});
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void TextBoxControlGroupForWithNullExpressionThrows()
 		{
 			// Arrange
 			var helper = MvcHelper.GetHtmlHelper(GetTextBoxViewData());
-			helper.TextBoxControlGroupFor<FooBarModel, object>(null /* expression */);
+			Assert.Throws<ArgumentNullException>(() => helper.TextBoxControlGroupFor<FooBarModel, object>(null /* expression */));
 		}
 
 		[Test]
@@ -187,14 +187,14 @@ namespace Mvc.Bootstrap.Test
 			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><input class=""input-validation-error foo-class form-control"" id=""Foo"" name=""Foo"" type=""text"" value=""AttemptedValueFoo"" /></div>", html.ToHtmlString());
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void PasswordControlGroupForWithNullExpressionThrows()
 		{
 			// Arrange
 			var helper = MvcHelper.GetHtmlHelper(GetPasswordViewData());
 
 			// Act & Assert
-			helper.PasswordControlGroupFor<FooModel, object>(null);
+			Assert.Throws<ArgumentNullException>(() => helper.PasswordControlGroupFor<FooModel, object>(null));
 		}
 
 		[Test]
@@ -338,34 +338,34 @@ namespace Mvc.Bootstrap.Test
 			Assert.AreEqual(@"<div class=""has-error form-group""><label class=""control-label"" for=""Foo"">Foo</label><input baz=""BazObjValue"" class=""input-validation-error form-control"" id=""Foo"" name=""Foo"" type=""password"" /></div>", html.ToHtmlString());
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void TextAreaControlGroupForWithNullExpression()
 		{
 			// Arrange
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act & Assert
-			helper.TextAreaControlGroupFor<TextAreaModel, object>(null /* expression */);
+			Assert.Throws<ArgumentNullException>(() => helper.TextAreaControlGroupFor<TextAreaModel, object>(null /* expression */));
 		}
 
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TextAreaControlGroupForWithOutOfRangeColsThrows()
 		{
 			// Arrange
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act & Assert
-			helper.TextAreaControlGroupFor(m => m.Foo, 0, -1, null /* htmlAttributes */);
+			Assert.Throws<ArgumentOutOfRangeException>(() => helper.TextAreaControlGroupFor(m => m.Foo, 0, -1, null /* htmlAttributes */));
 		}
 
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void TextAreaControlGroupForWithOutOfRangeRowsThrows()
 		{
 			// Arrange
 			var helper = MvcHelper.GetHtmlHelper(GetTextAreaViewData());
 
 			// Act & Assert
-			helper.TextAreaControlGroupFor(m => m.Foo, -1, 0, null /* htmlAttributes */);
+			Assert.Throws<ArgumentOutOfRangeException>(() => helper.TextAreaControlGroupFor(m => m.Foo, -1, 0, null /* htmlAttributes */));
 		}
 
 		[Test]
@@ -619,7 +619,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 			Assert.AreEqual(sb.ToString(), html.ToHtmlString());
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void DropDownListControlGroupForWithNullExpressionThrows()
 		{
 			// Arrange
@@ -627,7 +627,7 @@ ViewItemFoo</textarea>", html.ToHtmlString());
 			var selectList = new SelectList(GetSampleAnonymousObjects(), "Letter", "FullWord", "C");
 
 			// Act & Assert
-			helper.DropDownListControlGroupFor<object, object>(null /* expression */, selectList);
+			Assert.Throws<ArgumentNullException>(() => helper.DropDownListControlGroupFor<object, object>(null /* expression */, selectList));
 		}
 
 		[Test]
