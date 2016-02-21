@@ -2,11 +2,24 @@
 
 This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.
 
-[![NuGet version](https://badge.fury.io/nu/MVC.Bootstrap.Core.svg)](http://badge.fury.io/nu/MVC.Bootstrap.Core) ![Build Status](https://ci.appveyor.com/api/projects/status/8x7g55ql67j0ydd3?svg=true) 
+## Build Status
+
+<table>
+    <tr>
+        <th>master</th>
+		<td><a href="https://ci.appveyor.com/project/baynezy/mvc-bootstrap"><img src="https://ci.appveyor.com/api/projects/status/8x7g55ql67j0ydd3/branch/master?svg=true" alt="master" title="master" /></a></td>
+    </tr>
+    <tr>
+        <th>develop</th>
+		<td><a href="https://ci.appveyor.com/project/baynezy/mvc-bootstrap"><img src="https://ci.appveyor.com/api/projects/status/8x7g55ql67j0ydd3/branch/develop?svg=true" alt="develop" title="develop" /></a></td>
+    </tr>
+</table>
 
 ##Usage
 
 ### Install via NuGet
+
+[![NuGet version](https://badge.fury.io/nu/MVC.Bootstrap.Core.svg)](http://badge.fury.io/nu/MVC.Bootstrap.Core)
 
     Install-Package Mvc.Bootstrap.Core
 
