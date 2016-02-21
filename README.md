@@ -2,6 +2,8 @@
 
 This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.
 
+[![Stories in Ready](https://badge.waffle.io/baynezy/MVC.Bootstrap.svg?label=ready&title=Stories%20in%20Ready)](http://waffle.io/baynezy/MVC.Bootstrap)
+
 ## Build Status
 
 <table>
