@@ -42,7 +42,7 @@ So you can use the extension methods in your views you need to update the web.co
 
     @model Item
 
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "form-vertical"}))
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
         @Html.TextBoxControlGroupFor(m => m.Title)
         @Html.TextAreaControlGroupFor(m => m.Description)
