@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>MVC.Boostrap: Main Page</title>
+<title>MVC.Boostrap: File List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,9 +38,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,6 +57,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
           </span>
         </div>
       </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -76,52 +81,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">MVC.Boostrap Documentation</div>  </div>
+<div class="title">File List</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.</p>
-<h2>Documentation</h2>
-<p>Fully navigable documentation available on <a href="http://baynezy.github.io/MVC.Bootstrap/">GitHub Pages</a></p>
-<h2>Usage</h2>
-<h3>Install via NuGet</h3>
-<pre class="fragment">Install-Package Mvc.Bootstrap.Core
-</pre><h3>Make Available in Razor</h3>
-<p>So you can use the extension methods in your views you need to update the web.config in your views directory to add a reference to the new .dll. </p><pre class="fragment">&lt;system.web.webPages.razor&gt;
-    &lt;host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" /&gt;
-    &lt;pages pageBaseType="System.Web.Mvc.WebViewPage"&gt;
-        &lt;namespaces&gt;
-            &lt;add namespace="System.Web.Mvc" /&gt;
-            &lt;add namespace="System.Web.Mvc.Ajax" /&gt;
-            &lt;add namespace="System.Web.Mvc.Html" /&gt;
-            &lt;add namespace="System.Web.Routing" /&gt;
-            &lt;add namespace="Mvc.Bootstrap.Core"/&gt; 
-        &lt;/namespaces&gt;
-    &lt;/pages&gt;
-&lt;/system.web.webPages.razor&gt;
-</pre><h3>Use in your Views</h3>
-<h4>Example Model</h4>
-<pre class="fragment">public class Item
-{
-    public string Title { get; set; }
-    public string Description { get; set; }
-}
-</pre><h4>Usage in a View</h4>
-<pre class="fragment">@model Item
-
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
-{
-    @Html.TextBoxControlGroupFor(m =&gt; m.Title)
-    @Html.TextAreaControlGroupFor(m =&gt; m.Description)
-
-    @Html.ButtonFormAction("Submit", Buttons.Primary)
-}
-</pre><p>This will create an ASP.Net MVC Input Extension that works with Twitter Bootstrap 3.0. This includes validation and error messages.</p>
-<h2>Contributing</h2>
-<h3>Pull Requests</h3>
-<p>After forking the repository please create a pull request before creating the fix. This way we can talk about how the fix will be implemented. This will greatly increase your chance of your patch getting merged into the code base.</p>
-<h2>License</h2>
-<p>This project is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. </p>
-</div></div><!-- contents -->
+<div class="textblock">Here is a list of all files with brief descriptions:</div><div class="directory">
+<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span id="img_0_" class="iconfopen" onclick="toggleFolder('0_')">&#160;</span><a class="el" href="dir_b02556c43feb4e6201cb28a5cd7dc7a8.html" target="_self">Mvc.Bootstrap.Core</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span id="img_0_0_" class="iconfopen" onclick="toggleFolder('0_0_')">&#160;</span><a class="el" href="dir_4d88bb5abab3aa6e9d7dcb3f47c9ceab.html" target="_self">Properties</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icondoc"></span><a class="el" href="_assembly_info_8cs.html" target="_self">AssemblyInfo.cs</a></td><td class="desc"></td></tr>
+<tr id="row_0_1_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icondoc"></span><a class="el" href="_buttons_8cs.html" target="_self">Buttons.cs</a></td><td class="desc"></td></tr>
+<tr id="row_0_2_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icondoc"></span><a class="el" href="_input_extensions_8cs.html" target="_self">InputExtensions.cs</a></td><td class="desc"></td></tr>
+</table>
+</div><!-- directory -->
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
