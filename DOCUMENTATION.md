@@ -1,11 +1,11 @@
-#MVC.Bootstrap
+# MVC.Bootstrap
 
 This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.
 
 ## Documentation
 Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/MVC.Bootstrap/)
 
-##Usage
+## Usage
 
 ### Install via NuGet
 
@@ -52,9 +52,9 @@ So you can use the extension methods in your views you need to update the web.co
 
 This will create an ASP.Net MVC Input Extension that works with Twitter Bootstrap 3.0. This includes validation and error messages.
 
-##Contributing
+## Contributing
 
-###Pull Requests
+### Pull Requests
 
 After forking the repository please create a pull request before creating the fix. This way we can talk about how the fix will be implemented. This will greatly increase your chance of your patch getting merged into the code base.
 
