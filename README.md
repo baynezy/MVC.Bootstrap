@@ -18,7 +18,7 @@ This is a library project the extend the HtmlHelper class in ASP.Net MVC to allo
 </table>
 
 ## Documentation
-Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/SiteWarmer/)
+Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/MVC.Bootstrap/)
 
 ##Usage
 
