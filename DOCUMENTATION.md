@@ -1,30 +1,13 @@
-#MVC.Bootstrap
+# MVC.Bootstrap
 
 This is a library project the extend the HtmlHelper class in ASP.Net MVC to allow you create forms for Twitter's Bootstrap CSS project.
-
-[![Stories in Ready](https://badge.waffle.io/baynezy/MVC.Bootstrap.svg?label=ready&title=Stories%20in%20Ready)](http://waffle.io/baynezy/MVC.Bootstrap)
-
-## Build Status
-
-<table>
-    <tr>
-        <th>master</th>
-		<td><a href="https://ci.appveyor.com/project/baynezy/mvc-bootstrap"><img src="https://ci.appveyor.com/api/projects/status/8x7g55ql67j0ydd3/branch/master?svg=true" alt="master" title="master" /></a></td>
-    </tr>
-    <tr>
-        <th>develop</th>
-		<td><a href="https://ci.appveyor.com/project/baynezy/mvc-bootstrap"><img src="https://ci.appveyor.com/api/projects/status/8x7g55ql67j0ydd3/branch/develop?svg=true" alt="develop" title="develop" /></a></td>
-    </tr>
-</table>
 
 ## Documentation
 Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/MVC.Bootstrap/)
 
-##Usage
+## Usage
 
 ### Install via NuGet
-
-[![NuGet version](https://badge.fury.io/nu/MVC.Bootstrap.Core.svg)](http://badge.fury.io/nu/MVC.Bootstrap.Core)
 
     Install-Package Mvc.Bootstrap.Core
 
@@ -59,7 +42,7 @@ So you can use the extension methods in your views you need to update the web.co
 
     @model Item
 
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "form-vertical"}))
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
         @Html.TextBoxControlGroupFor(m => m.Title)
         @Html.TextAreaControlGroupFor(m => m.Description)
@@ -69,9 +52,9 @@ So you can use the extension methods in your views you need to update the web.co
 
 This will create an ASP.Net MVC Input Extension that works with Twitter Bootstrap 3.0. This includes validation and error messages.
 
-##Contributing
+## Contributing
 
-###Pull Requests
+### Pull Requests
 
 After forking the repository please create a pull request before creating the fix. This way we can talk about how the fix will be implemented. This will greatly increase your chance of your patch getting merged into the code base.
 
