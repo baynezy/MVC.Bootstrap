@@ -7,7 +7,8 @@
     <authors>Simon Baynes</authors>
     <owners>Simon Baynes</owners>
     <projectUrl>https://github.com/baynezy/MVC.Bootstrap</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Contains extension methods for the System.Web.Mvc.HtmlHelper class. Allowing you to use Asp.Net MVC with the Twitter Bootstrap UI Framework.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2013</copyright>
