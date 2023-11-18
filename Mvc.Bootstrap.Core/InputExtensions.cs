@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Mvc.Bootstrap.Core
 {
@@ -24,62 +24,62 @@ namespace Mvc.Bootstrap.Core
 		private const string ControlGroupErrorClass = "has-error";
 		private const string FormControlClass = "form-control";
 
-		public static MvcHtmlString BootstrapButton(this HtmlHelper htmlHelper, string label, int type)
+		public static HtmlString BootstrapButton(this IHtmlHelper htmlHelper, string label, int type)
 		{
-			return MvcHtmlString.Create(CreateButton(label, type).ToString());
+			return HtmlString.Create(CreateButton(label, type).ToString());
 		}
 
-		public static MvcHtmlString BootstrapButton(this HtmlHelper htmlHelper, string label, int type, object htmlAttributes)
+		public static HtmlString BootstrapButton(this IHtmlHelper htmlHelper, string label, int type, object htmlAttributes)
 		{
 			return CreateButton(label, type, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type)
+		public static HtmlString ButtonControlGroup(this IHtmlHelper htmlHelper, string label, int type)
 		{
 			return BootstrapifyControlGroupButton(BootstrapButton(htmlHelper, label, type));
 		}
 
-		public static MvcHtmlString ButtonControlGroup(this HtmlHelper htmlHelper, string label, int type, object htmlAttributes)
+		public static HtmlString ButtonControlGroup(this IHtmlHelper htmlHelper, string label, int type, object htmlAttributes)
 		{
 			return BootstrapifyControlGroupButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
 		}
 
-		public static MvcHtmlString ButtonFormAction(this HtmlHelper htmlHelper, string label, int type)
+		public static HtmlString ButtonFormAction(this IHtmlHelper htmlHelper, string label, int type)
 		{
 			return BootstrapifyFormActionButton(BootstrapButton(htmlHelper, label, type));
 		}
 
-		public static MvcHtmlString ButtonFormAction(this HtmlHelper htmlHelper, string label, int type, object  htmlAttributes)
+		public static HtmlString ButtonFormAction(this HtmlHelper htmlHelper, string label, int type, object  htmlAttributes)
 		{
 			return BootstrapifyFormActionButton(BootstrapButton(htmlHelper, label, type, htmlAttributes));
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, format: null);
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, format, null);
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, null, htmlAttributes);
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, format, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
 			return htmlHelper.TextBoxControlGroupFor(expression, null, htmlAttributes);
 		}
 
-		public static MvcHtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
+		public static HtmlString TextBoxControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextBoxFor(expression, htmlAttributes);
@@ -93,17 +93,17 @@ namespace Mvc.Bootstrap.Core
 			return new Dictionary<string, object> {{"class", LabelClass}};
 		}
 
-		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+		public static HtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
 		{
 			return PasswordControlGroupFor(htmlHelper, expression, htmlAttributes: null);
 		}
 
-		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+		public static HtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
 		{
 			return PasswordControlGroupFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+		public static HtmlString PasswordControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.PasswordFor(expression, htmlAttributes);
@@ -112,17 +112,17 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl, coreLabel);
 		}
 
-		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+		public static HtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
 		{
 			return TextAreaControlGroupFor(htmlHelper, expression, (IDictionary<string, object>)null);
 		}
 
-		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+		public static HtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
 		{
 			return TextAreaControlGroupFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+		public static HtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, htmlAttributes);
@@ -131,12 +131,12 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl, coreLabel);
 		}
 
-		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
+		public static HtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
 		{
 			return TextAreaControlGroupFor(htmlHelper, expression, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
+		public static HtmlString TextAreaControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.TextAreaFor(expression, rows, columns, htmlAttributes);
@@ -145,32 +145,32 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl, coreLabel);
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
 		{
 			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, null /* htmlAttributes */);
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
 		{
 			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
 		{
 			return DropDownListControlGroupFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes);
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
 		{
 			return DropDownListControlGroupFor(htmlHelper, expression, selectList, optionLabel, null /* htmlAttributes */);
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
 		{
 			return DropDownListControlGroupFor(htmlHelper, expression, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 		}
 
-		public static MvcHtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+		public static HtmlString DropDownListControlGroupFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
 		{
 			AddInputAttributes(ref htmlAttributes);
 			var coreControl = htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes);
@@ -179,7 +179,7 @@ namespace Mvc.Bootstrap.Core
 			return Bootstrapify(coreControl, coreLabel);
 		}
 
-		private static MvcHtmlString Bootstrapify(IHtmlString coreControl, MvcHtmlString coreLabel)
+		private static HtmlString Bootstrapify(HtmlString coreControl, HtmlString coreLabel)
 		{
 			var controlGroupDiv = ControlGroupDiv();
 			var coreHtml = coreControl.ToHtmlString();
@@ -191,23 +191,23 @@ namespace Mvc.Bootstrap.Core
 
 			controlGroupDiv.InnerHtml = label.ToHtmlString() + coreControl.ToHtmlString() + errorMessage;
 
-			return MvcHtmlString.Create(controlGroupDiv.ToString());
+			return HtmlString.Create(controlGroupDiv.ToString());
 		}
 
-		private static MvcHtmlString BootstrapifyControlGroupButton(MvcHtmlString bootstrapButton)
+		private static HtmlString BootstrapifyControlGroupButton(HtmlString bootstrapButton)
 		{
 			var group = ControlGroupDiv();
 			group.InnerHtml = bootstrapButton.ToHtmlString();
 
-			return MvcHtmlString.Create(group.ToString());
+			return HtmlString.Create(group.ToString());
 		}
 
-		private static MvcHtmlString BootstrapifyFormActionButton(MvcHtmlString bootstrapButton)
+		private static HtmlString BootstrapifyFormActionButton(HtmlString bootstrapButton)
 		{
 			var control = FormActionDiv();
 			control.InnerHtml = bootstrapButton.ToHtmlString();
 
-			return MvcHtmlString.Create(control.ToString());
+			return HtmlString.Create(control.ToString());
 		}
 
 		private static BootstrapControl Bootstrapify(string html)
@@ -360,11 +360,11 @@ namespace Mvc.Bootstrap.Core
 			return cssClass;
 		}
 
-		private static MvcHtmlString CreateButton(string label, int type, IDictionary<string, object> htmlAttributes)
+		private static HtmlString CreateButton(string label, int type, IDictionary<string, object> htmlAttributes)
 		{
 			var button = CreateButton(label, type);
 			button.MergeAttributes(htmlAttributes);
-			return MvcHtmlString.Create(button.ToString());
+			return HtmlString.Create(button.ToString());
 		}
 	}
 
